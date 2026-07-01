@@ -1,0 +1,59 @@
+---
+const faqs = [
+  {
+    q: "¿Se requiere visa para este viaje?",
+    a: "No requieres visa si eres de nacionalidad mexicana. Únicamente necesitas tu pasaporte vigente con más de 6 meses de validez al momento de viajar."
+  },
+  {
+    q: "¿Qué incluye el paquete de bebidas en el crucero?",
+    a: "Incluye una amplia selección de bebidas con y sin alcohol ilimitadas en los bares y restaurantes del barco durante todo el recorrido."
+  },
+  {
+    q: "¿Las propinas ya están incluidas?",
+    a: "Sí, las propinas obligatorias del crucero y todos los impuestos portuarios ya vienen totalmente pagados en tu tarifa."
+  },
+  {
+    q: "¿Cómo funciona el esquema de pagos?",
+    a: "Apartas tu lugar con un monto inicial fijo y puedes ir dando abonos cómodos. El viaje debe quedar liquidado en su totalidad 90 días antes de la salida."
+  },
+  {
+    q: "¿Qué pasa con las excursiones en las islas?",
+    a: "Las visitas a las islas son libres. Puedes bajar a explorar por tu cuenta o contratar las excursiones guiadas opcionales directamente con nosotros antes de viajar."
+  },
+  {
+    q: "¿Hay internet a bordo del barco?",
+    a: "El barco cuenta con WiFi satelital. Puedes contratar paquetes de internet antes de abordar para mantenerte comunicado en altamar."
+  }
+];
+---
+<section class="py-24 bg-white">
+  <div class="container mx-auto px-6 max-w-4xl">
+    <h2 class="text-3xl md:text-5xl font-bold text-center mb-16 text-gray-900">
+      PREGUNTAS FRECUENTES
+    </h2>
+
+    <div class="space-y-4">
+      {faqs.map((faq, index) => (
+        <details class="group bg-gray-50 rounded-2xl border border-gray-100 open:bg-white open:border-acero-profundo/20 transition-all duration-300">
+          <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+            <h3 class="text-xl font-bold text-gray-800 pr-8">{faq.q}</h3>
+            <div class="bg-white p-2 rounded-lg group-open:rotate-180 transition-transform duration-300 shadow-sm">
+              <svg class="w-5 h-5 text-acero-profundo" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </summary>
+          <div class="px-6 pb-6 text-lg text-gray-600 leading-relaxed">
+            {faq.a}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

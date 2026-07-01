@@ -1,0 +1,65 @@
+---
+const includes = [
+  "Vuelo redondo Ciudad de México – Santo Domingo – México.",
+  "Maleta documentada y equipaje de mano incluidos en el avión.",
+  "7 noches de crucero a bordo del espectacular barco Costa Favolosa.",
+  "2 noches de hospedaje previo y posterior en Santo Domingo.",
+  "Traslados privados para todos los trayectos entre aeropuerto, hotel y puerto.",
+  "Todo incluido a bordo con desayunos, comidas y cenas buffet o a la carta.",
+  "Paquete de bebidas con y sin alcohol ilimitadas durante todo el crucero.",
+  "Diversión total con acceso libre a albercas, casino, teatro, disco y bares.",
+  "Gastos fijos pagados con impuestos portuarios y propinas obligatorias ya incluidas.",
+  "Protección total con seguro de viajero internacional para todo el trayecto.",
+  "Conectividad con tarjeta eSIM con internet de regalo para tu viaje."
+];
+
+const notIncludes = [
+  "Excursiones o tours guiados en las islas visitadas.",
+  "Restaurantes de especialidad o servicios premium a bordo.",
+  "Comidas y cenas durante los días de estancia en Santo Domingo.",
+  "Gastos personales, recuerdos o servicios de lavandería y spa."
+];
+---
+<section class="py-24 bg-gray-50">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl md:text-5xl font-bold text-center mb-16 text-gray-900">
+      LO QUE INCLUYE TU VIAJE
+    </h2>
+
+    <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+      <!-- Columna Incluye -->
+      <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-green-100">
+        <h3 class="text-2xl font-bold text-green-700 mb-8 flex items-center gap-3">
+          <span class="bg-green-100 p-2 rounded-full text-xl">✅</span> Incluye
+        </h3>
+        <ul class="space-y-4">
+          {includes.map(item => (
+            <li class="flex items-start gap-4 text-gray-700">
+              <svg class="w-6 h-6 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="text-lg">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Columna No Incluye -->
+      <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-red-100">
+        <h3 class="text-2xl font-bold text-red-700 mb-8 flex items-center gap-3">
+          <span class="bg-red-100 p-2 rounded-full text-xl">❌</span> No incluye
+        </h3>
+        <ul class="space-y-4">
+          {notIncludes.map(item => (
+            <li class="flex items-start gap-4 text-gray-600">
+              <svg class="w-6 h-6 text-red-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+              <span class="text-lg">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

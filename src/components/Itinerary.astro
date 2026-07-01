@@ -1,0 +1,75 @@
+---
+const stops = [
+  {
+    city: "Santo Domingo",
+    desc: "Vuelo desde CDMX, traslados y hotel incluidos. El punto perfecto para iniciar y terminar el viaje explorando su zona colonial."
+  },
+  {
+    city: "Isla de Antigua",
+    desc: "Tu primera parada en el paraíso. Famosa por sus playas de arena blanca impecable y aguas turquesas ultra cristalinas."
+  },
+  {
+    city: "Fort-de-France",
+    desc: "Una escala con encanto único. Disfruta de un ambiente completamente francés, tiendas chic y exuberante vegetación tropical."
+  },
+  {
+    city: "Pointe-à-Pitre",
+    desc: "Naturaleza y sabor en estado puro. Explora cascadas mágicas en la selva, destilerías de ron tradicional y deliciosa cocina criolla."
+  },
+  {
+    city: "Basseterre",
+    desc: "Vistas de postal e historia. Descubre imponentes fortalezas coloniales del siglo XVII construidas en lo alto de verdes colinas."
+  },
+  {
+    city: "Road Town",
+    desc: "El paraíso del mar. Una isla espectacular ideal para nadar y hacer esnórquel en arrecifes de coral llenos de vida marina."
+  }
+];
+---
+<section class="py-24 bg-acero-profundo text-white overflow-hidden">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl md:text-5xl font-bold text-center mb-16">
+      TU ITINERARIO EN UNA SOLA MIRADA
+    </h2>
+
+    <div class="relative">
+      <div id="itinerary-scroll" class="flex overflow-x-auto gap-6 pb-12 snap-x scrollbar-hide">
+        {stops.map((stop, index) => (
+          <div class="min-w-[300px] md:min-w-[400px] snap-center bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-3xl flex flex-col justify-between h-[350px]">
+            <div>
+              <span class="text-5xl font-bold text-white/10 mb-4 block">Día {index + 1}</span>
+              <h3 class="text-2xl font-bold mb-4">{stop.city}</h3>
+              <p class="text-white/80 leading-relaxed text-lg">
+                {stop.desc}
+              </p>
+            </div>
+            <div class="mt-6 flex items-center gap-2 text-white/50 font-medium">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              <span>Parada Destacada</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <!-- Controles visuales (opcionales para indicar scroll) -->
+      <div class="flex justify-center gap-2 mt-4">
+        {stops.map((_, i) => (
+          <div class="w-2 h-2 rounded-full bg-white/30"></div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>

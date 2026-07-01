@@ -1,0 +1,37 @@
+---
+const options = [
+  "Excursiones y tours en tierra para explorar a fondo las playas de Antigua, el encanto de Martinica, las cascadas de Guadalupe, la historia de St. Kitts y los arrecifes de Tórtola.",
+  "Paquetes de conexión WiFi para mantenerte comunicado y compartir tus fotos en tiempo real desde altamar.",
+  "Restaurantes de especialidad a bordo del Costa Favolosa para disfrutar de cenas y menús de autor premium.",
+  "Servicios a bordo como tratamientos de Spa, masajes relajantes, salón de belleza y lavandería."
+];
+---
+<section class="py-24 bg-gray-50">
+  <div class="container mx-auto px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-5xl font-bold mb-6 text-gray-900">
+        HAZ TU VIAJE TODAVÍA MÁS TUYO
+      </h2>
+      <p class="text-xl text-gray-600 mb-16">
+        Estas experiencias no están incluidas en el paquete básico y requieren reserva anticipada.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {options.map(item => (
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 text-left group hover:shadow-md transition-shadow">
+            <div class="bg-acero-profundo/5 p-2 rounded-lg group-hover:bg-acero-profundo/10 transition-colors">
+              <svg class="w-6 h-6 text-acero-profundo" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg>
+            </div>
+            <p class="text-gray-700 font-medium">{item}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="mt-12 text-sm text-gray-500 italic">
+        Nota: Los precios en pesos son informativos y calculados bajo el tipo de cambio vigente al momento de su liquidación.
+      </p>
+    </div>
+  </div>
+</section>

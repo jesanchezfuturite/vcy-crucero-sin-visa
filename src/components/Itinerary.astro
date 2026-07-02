@@ -41,7 +41,7 @@ const stops = [
     <div class="relative">
       <div id="itinerary-scroll" class="flex overflow-x-auto gap-6 pb-12 snap-x scrollbar-hide">
         {stops.map((stop, index) => (
-          <div class="min-w-[300px] md:min-w-[400px] snap-center relative overflow-hidden bg-acero-profundo border border-white/20 p-8 rounded-3xl flex flex-col justify-between h-[450px] group">
+          <div class="min-w-[85vw] md:min-w-[400px] snap-center relative overflow-hidden bg-acero-profundo border border-white/20 p-8 rounded-3xl flex flex-col justify-between h-[450px] group">
             <!-- Background Image -->
             <div class="absolute inset-0 z-0">
               <img src={stop.image} alt={stop.city} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />

@@ -1,6 +1,6 @@
 ---
 ---
-<section id="formulario-contacto" class="py-24 bg-acero-profundo text-white scroll-mt-20">
+<section id="formulario-contacto" class="py-24 bg-acero-profundo text-white scroll-mt-48">
   <div class="container mx-auto px-6 max-w-4xl">
     <div class="text-center mb-12">
       <h2 class="text-3xl md:text-5xl font-bold mb-4">CONOCE CADA DETALLE DE TU VIAJE DÍA POR DÍA</h2>
@@ -61,9 +61,19 @@
         </button>
       </form>
       
-      <div id="success-msg" class="hidden mt-8 p-6 bg-green-50 border border-green-200 rounded-2xl text-center">
-        <div class="text-green-600 font-bold text-xl mb-2">¡Solicitud enviada con éxito!</div>
-        <p class="text-green-700">En unos momentos recibirás el itinerario en tu correo y WhatsApp.</p>
+      <div id="success-msg" class="hidden mt-8 p-8 bg-green-50 border border-green-200 rounded-3xl text-center shadow-inner">
+        <div class="text-green-600 font-bold text-2xl mb-4">¡Solicitud enviada con éxito!</div>
+        <p class="text-green-700 text-lg mb-8">Gracias por tu interés. Ya puedes descargar el itinerario detallado haciendo clic en el botón de abajo.</p>
+        <a 
+          href="/pdf/crucero-por-el-caribe.pdf" 
+          download 
+          class="inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-2xl transition-all shadow-lg transform hover:scale-105"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+          Descargar Itinerario PDF
+        </a>
       </div>
     </div>
   </div>
@@ -97,7 +107,13 @@
       if (response.ok) {
         form.classList.add('hidden');
         successMsg?.classList.remove('hidden');
-        // Aquí podrías disparar la descarga real del PDF
+        
+        // Disparar descarga automática del PDF
+        const downloadLink = document.createElement('a');
+        downloadLink.href = '/pdf/crucero-por-el-caribe.pdf';
+        downloadLink.download = 'Itinerario-Crucero-Caribe-2027.pdf';
+        downloadLink.click();
+
         console.log('Success! Form sent.');
       } else {
         alert('Hubo un error al enviar el formulario. Por favor intenta de nuevo.');

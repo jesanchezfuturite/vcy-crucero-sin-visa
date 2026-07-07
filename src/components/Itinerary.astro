@@ -38,7 +38,17 @@ const stops = [
       TU ITINERARIO EN UNA SOLA MIRADA
     </h2>
 
-    <div class="relative">
+    <div class="relative group/slider">
+      <!-- Botón Anterior -->
+      <button id="itinerary-prev" class="absolute left-2 md:-left-4 top-[225px] -translate-y-1/2 z-20 bg-white text-acero-profundo p-3 rounded-full shadow-lg hover:bg-gray-100 transition-all hidden md:flex items-center justify-center opacity-0 group-hover/slider:opacity-100" aria-label="Anterior">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+
+      <!-- Botón Siguiente -->
+      <button id="itinerary-next" class="absolute right-2 md:-right-4 top-[225px] -translate-y-1/2 z-20 bg-white text-acero-profundo p-3 rounded-full shadow-lg hover:bg-gray-100 transition-all hidden md:flex items-center justify-center opacity-0 group-hover/slider:opacity-100" aria-label="Siguiente">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+
       <div id="itinerary-scroll" class="flex overflow-x-auto gap-6 pb-12 snap-x scrollbar-hide">
         {stops.map((stop, index) => (
           <div class="min-w-[85vw] md:min-w-[400px] snap-center relative overflow-hidden bg-acero-profundo border border-white/20 p-8 rounded-3xl flex flex-col justify-between h-[450px] group">
@@ -66,10 +76,10 @@ const stops = [
         ))}
       </div>
       
-      <!-- Controles visuales (opcionales para indicar scroll) -->
+      <!-- Controles visuales interactivos -->
       <div class="flex justify-center gap-2 mt-4">
         {stops.map((_, i) => (
-          <div class="w-2 h-2 rounded-full bg-white/30"></div>
+          <button class="slider-dot w-2 h-2 rounded-full transition-colors duration-300 bg-white/30 hover:bg-white/60" aria-label={`Ir a la parada ${i + 1}`}></button>
         ))}
       </div>
     </div>
@@ -85,3 +95,98 @@ const stops = [
     scrollbar-width: none;
   }
 </style>
+
+<script>
+  function setupItinerarySlider() {
+    const scrollContainer = document.getElementById('itinerary-scroll');
+    const dots = document.querySelectorAll('.slider-dot');
+    const prevBtn = document.getElementById('itinerary-prev');
+    const nextBtn = document.getElementById('itinerary-next');
+    
+    if (!scrollContainer) return;
+
+    const getActiveIndex = () => {
+      const scrollPosition = scrollContainer.scrollLeft;
+      const containerOffset = scrollContainer.offsetLeft;
+      const containerCenter = scrollPosition + (scrollContainer.clientWidth / 2);
+      
+      let activeIndex = 0;
+      let minDistance = Infinity;
+
+      const items = scrollContainer.children;
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const itemCenter = (item.offsetLeft - containerOffset) + (item.clientWidth / 2);
+        const distance = Math.abs(containerCenter - itemCenter);
+        
+        if (distance < minDistance) {
+          minDistance = distance;
+          activeIndex = i;
+        }
+      }
+      return activeIndex;
+    };
+
+    const scrollToItem = (index) => {
+      const items = scrollContainer.children;
+      if (items[index]) {
+        const item = items[index];
+        const containerOffset = scrollContainer.offsetLeft;
+        const itemCenter = (item.offsetLeft - containerOffset) + (item.clientWidth / 2);
+        const scrollTarget = itemCenter - (scrollContainer.clientWidth / 2);
+        
+        scrollContainer.scrollTo({
+          left: scrollTarget,
+          behavior: 'smooth'
+        });
+      }
+    };
+
+    const updateDots = () => {
+      const activeIndex = getActiveIndex();
+      dots.forEach((dot, index) => {
+        if (index === activeIndex) {
+          dot.classList.add('bg-white');
+          dot.classList.remove('bg-white/30');
+        } else {
+          dot.classList.remove('bg-white');
+          dot.classList.add('bg-white/30');
+        }
+      });
+
+      if (prevBtn) prevBtn.style.opacity = activeIndex === 0 ? '0.5' : '';
+      if (nextBtn) nextBtn.style.opacity = activeIndex === scrollContainer.children.length - 1 ? '0.5' : '';
+      if (prevBtn) prevBtn.style.pointerEvents = activeIndex === 0 ? 'none' : 'auto';
+      if (nextBtn) nextBtn.style.pointerEvents = activeIndex === scrollContainer.children.length - 1 ? 'none' : 'auto';
+    };
+
+    // Escuchar el evento de scroll
+    scrollContainer.addEventListener('scroll', updateDots, { passive: true });
+    
+    // Inicializar el estado de los puntos
+    updateDots();
+
+    // Permitir clic en los puntos para navegar
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => scrollToItem(index));
+    });
+
+    // Botones previo y siguiente
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        scrollToItem(Math.max(0, getActiveIndex() - 1));
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        scrollToItem(Math.min(scrollContainer.children.length - 1, getActiveIndex() + 1));
+      });
+    }
+  }
+
+  // Inicializar al cargar
+  setupItinerarySlider();
+  // Soporte para Astro View Transitions si están activadas
+  document.addEventListener('astro:page-load', setupItinerarySlider);
+</script>

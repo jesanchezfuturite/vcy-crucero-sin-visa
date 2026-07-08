@@ -2,15 +2,18 @@
 const moments = [
   {
     title: "Navegar en un resort flotante de lujo",
-    description: "Disfruta a bordo del espectacular Costa Favolosa con albercas, teatro, casino y barras libres incluidas mientras avanzas hacia tu próximo destino."
+    description: "Disfruta a bordo del espectacular Costa Favolosa con albercas, teatro, casino y barras libres incluidas mientras avanzas hacia tu próximo destino.",
+    image: "/images/moments/resort.jpg"
   },
   {
     title: "Despertar cada mañana en una isla exótica diferente",
-    description: "Listos para explorar playas de arena blanca en Antigua, el encanto francés de Martinica o los paisajes tropicales de Guadalupe."
+    description: "Listos para explorar playas de arena blanca en Antigua, el encanto francés de Martinica o los paisajes tropicales de Guadalupe.",
+    image: "/images/moments/isla.jpg"
   },
   {
     title: "Sumergirte en aguas de postal",
-    description: "haciendo esnórquel entre arrecifes llenos de vida marina en Tórtola y descubriendo imponentes fortalezas coloniales del siglo XVII en St. Kitts."
+    description: "haciendo esnórquel entre arrecifes llenos de vida marina en Tórtola y descubriendo imponentes fortalezas coloniales del siglo XVII en St. Kitts.",
+    image: "/images/moments/aguas.jpg"
   }
 ];
 ---
@@ -23,10 +26,8 @@ const moments = [
     <div class="grid md:grid-cols-3 gap-8">
       {moments.map(moment => (
         <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:border-acero-profundo/20 transition-all group">
-          <div class="w-16 h-16 bg-acero-profundo text-white rounded-2xl flex items-center justify-center mx-auto mb-6 transform group-hover:rotate-6 transition-transform">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-            </svg>
+          <div class="w-full h-48 mb-6 overflow-hidden rounded-2xl">
+            <img src={moment.image} alt={moment.title} class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
           </div>
           <h3 class="text-2xl font-bold mb-4 text-gray-800">{moment.title}</h3>
           <p class="text-gray-600 leading-relaxed text-lg">

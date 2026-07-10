@@ -3,6 +3,7 @@ import type { APIRoute } from 'astro';
 export const prerender = false;
 
 const BREVO_API_KEY = import.meta.env.BREVO_API_KEY;
+const N8N_WEBHOOK_URL = import.meta.env.N8N_WEBHOOK_URL;
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -53,8 +54,28 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ message: 'Error al enviar el correo' }), { status: 502 });
     }
 
+    // Envío al webhook externo de n8n
+    const webhookResponse = await fetch(N8N_WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nombre: name,
+        telefono: phone,
+        correo: email,
+        origen: 'Crucero sin visa'
+      })
+    });
+
+    if (!webhookResponse.ok) {
+      const errorText = await webhookResponse.text();
+      console.error('Error del webhook n8n:', errorText);
+      return new Response(JSON.stringify({ message: 'Error al enviar el lead al webhook' }), { status: 502 });
+    }
+
     return new Response(JSON.stringify({
-      message: 'Lead enviado correctamente a Brevo',
+      message: 'Lead enviado correctamente a Brevo y webhook',
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
